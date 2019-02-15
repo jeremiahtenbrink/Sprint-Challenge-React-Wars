@@ -43,6 +43,7 @@ class App extends Component {
       debugger;
     return (
       <div className="App">
+          <div className="background"/>
         <h1 className="Header">React Wars</h1>
           {this.state.starwarsChars.map(character => <Character key={character.name} character={character}/>)}
       </div>

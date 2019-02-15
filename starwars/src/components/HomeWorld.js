@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from "react";
 import './GetData';
 import { GetData } from "./GetData";
+import './homeworld.scss';
 
 class HomeWorld extends React.Component {
     constructor(props){
@@ -20,7 +21,7 @@ class HomeWorld extends React.Component {
     
     render() {
         return (
-            <div>
+            <div className="home-world">
                 <h3>HomeWorld: {this.state.homeWorld.name}</h3>
                 <p>Climate: {this.state.homeWorld.climate}</p>
                 <p>Terrain: {this.state.homeWorld.terrain}</p>

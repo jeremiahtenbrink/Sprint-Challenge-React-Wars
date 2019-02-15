@@ -19,11 +19,9 @@ class Film extends React.Component {
     
     render () {
         return (
-            <div>
-                <p>
+                <p className="film">
                     {this.state.film.title};
                 </p>
-            </div>
         );
     }
 };

@@ -16,7 +16,6 @@ const Character = ( props ) => {
         birth_year: props.character.birth_year,
         gender: props.character.gender,
     };
-    debugger;
     return (
         <div className="character">
             

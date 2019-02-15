@@ -1,39 +1,51 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
+import Character from "./components/Character";
+import { GetData } from "./components/GetData";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
+        next: '',
+        prev: '',
       starwarsChars: []
     };
   }
 
   componentDidMount() {
-    this.getCharacters('https://swapi.co/api/people');
+      GetData("https://swapi.co/api/people", (data) => {
+          debugger;
+        this.setState({starwarsChars: data.results, next: data.next, prev: data.previous})
+      })
   }
-
-  getCharacters = URL => {
-    // feel free to research what this code is doing.
-    // At a high level we are calling an API to fetch some starwars data from the open web.
-    // We then take that data and resolve it our state.
-    fetch(URL)
-      .then(res => {
-        return res.json();
-      })
-      .then(data => {
-        this.setState({ starwarsChars: data.results });
-      })
-      .catch(err => {
-        throw new Error(err);
-      });
+    
+    getPrev = () => {
+        debugger;
+        GetData(this.state.prev, (data) => {
+            this.setState({starwarsChars: data.results, next: data.next, prev: data.previous});
+        });
+    };
+  
+  getNext = () => {
+      debugger;
+    GetData(this.state.next, (data) => {
+      this.setState({starwarsChars: data.results, next: data.next, prev: data.previous});
+    });
   };
 
   render() {
     return (
       <div className="App">
+          <div className="page-buttons">
+              {(this.state.prev ? <button onClick={this.getPrev} className="prev">Prev</button> : '')}
+              {(this.state.next ? <button onClick={this.getNext} className="next">Next</button> : '')}
+          </div>
+          <div className="background"/>
         <h1 className="Header">React Wars</h1>
+          {this.state.starwarsChars.map(character => <Character key={character.name} character={character}/>)}
       </div>
+      
     );
   }
 }
